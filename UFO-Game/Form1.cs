@@ -20,7 +20,7 @@ namespace UFO_Game
 
         //initialize global variable
         Bitmap bFrame; //rendering frame
-        Random r = new Random(); //random generator
+        Random rand = new Random(); //random generator
 
         //game info
         int gameScore = 0;
@@ -71,7 +71,7 @@ namespace UFO_Game
                     //move object
                     if (Environment.TickCount - oUfo.lastTick > oUfo.OffsetInterval_X)
                     {
-                        oUfo.FlyOffsetX = r.Next(-7, 7);
+                        oUfo.FlyOffsetX = rand.Next(-7, 7);
                         oUfo.lastTick = Environment.TickCount;
                     }
                     oUfo.Move(oUfo.FlyOffsetX * ((1 - ((Environment.TickCount - oUfo.lastTick) / oUfo.OffsetInterval_X))), oUfo.DropSpeed);
@@ -146,9 +146,9 @@ namespace UFO_Game
 
         private void btn_addUFO_Click(object sender, EventArgs e)
         {
-            obj_ufo objUfo = new obj_ufo(bUFO, 100, 60, r.Next(0, this.Width));
-            objUfo.DropSpeed = r.Next(1,6);
-            objUfo.OffsetInterval_X = r.Next(350,2000);
+            obj_ufo objUfo = new obj_ufo(bUFO, 100, 60, rand.Next(0, this.Width));
+            objUfo.DropSpeed = rand.Next(1,6);
+            objUfo.OffsetInterval_X = rand.Next(350,2000);
             objUfo.Image = bUFO;
             ufoList.Add(objUfo);
         }
@@ -162,9 +162,9 @@ namespace UFO_Game
         {
 
             //destory detect
-            var mouseEventArgs = e as MouseEventArgs;
-            int mousePosX = mouseEventArgs.X;
-            int mousePosY = mouseEventArgs.Y;
+            MouseEventArgs mouseEventArgs = (MouseEventArgs)e;
+            int mousePosX = mouseEventArgs.X, mousePosY = mouseEventArgs.Y;
+            bool isHit = false;
 
             foreach (obj_ufo oUfo in ufoList) {
 
@@ -176,10 +176,13 @@ namespace UFO_Game
                         oUfo.destroy = true;
                         oUfo.Image = bUFO_destroy;
                         oUfo.destroyTime = Environment.TickCount;
+                        isHit = true;
                     }
                 }
                 
             }
+
+            if(!isHit && gameScore > 0) gameScore--;
         }
 
         private void Label1_MouseEnter(object sender, EventArgs e)
