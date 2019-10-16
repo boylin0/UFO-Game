@@ -13,11 +13,11 @@ namespace UFO_Game
         public float X = 0, Y = 0;
         public int Width = 50, Height = 50;
         public float DropSpeed = 2;
-        public float lowestSpeed = 0.5f;
-        public float dynamicSpeed = 5;
+        public float LowestSpeed = 0.5f;
+        public float AccelerationSpeed = 5;
         public int FlySwaySpeed = 0;
         public int lastTick = 0;
-        public int OffsetInterval_X = 1000;
+        public int SwayInterval = 1000;
         public bool destroy = false;
         public int destroyTime = 0;
         
@@ -43,7 +43,9 @@ namespace UFO_Game
         public Image Image;
         public float X = 0, Y = 0;
         public int Width = 50, Height = 50;
-        public float BulletSpeed = 3.0f;
+        public float LowestSpeed = 3.5f;
+        public float AccelerationSpeed = 15.0f;
+
         public bool destroy = false;
         public int destroyTime = 0;
     }

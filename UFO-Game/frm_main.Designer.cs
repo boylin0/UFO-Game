@@ -1,6 +1,6 @@
 ﻿namespace UFO_Game
 {
-    partial class Form1
+    partial class frm_main
     {
         /// <summary>
         /// Required designer variable.
@@ -34,11 +34,11 @@
             this.btn_rmUFO = new System.Windows.Forms.Button();
             this.chk_autoDestroy = new System.Windows.Forms.CheckBox();
             this.gbox_option = new System.Windows.Forms.GroupBox();
+            this.chk_godMod = new System.Windows.Forms.CheckBox();
             this.chk_ufosway = new System.Windows.Forms.CheckBox();
             this.chk_ufoAutoAdd = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ufoAddTick = new System.Windows.Forms.Timer(this.components);
-            this.chk_godMod = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gbox_option.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -55,7 +55,7 @@
             this.btn_addUFO.Location = new System.Drawing.Point(28, 43);
             this.btn_addUFO.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_addUFO.Name = "btn_addUFO";
-            this.btn_addUFO.Size = new System.Drawing.Size(107, 31);
+            this.btn_addUFO.Size = new System.Drawing.Size(99, 22);
             this.btn_addUFO.TabIndex = 1;
             this.btn_addUFO.Text = "Add UFO";
             this.btn_addUFO.UseVisualStyleBackColor = true;
@@ -63,10 +63,10 @@
             // 
             // btn_rmUFO
             // 
-            this.btn_rmUFO.Location = new System.Drawing.Point(142, 43);
+            this.btn_rmUFO.Location = new System.Drawing.Point(28, 73);
             this.btn_rmUFO.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_rmUFO.Name = "btn_rmUFO";
-            this.btn_rmUFO.Size = new System.Drawing.Size(107, 31);
+            this.btn_rmUFO.Size = new System.Drawing.Size(99, 22);
             this.btn_rmUFO.TabIndex = 2;
             this.btn_rmUFO.Text = "Remove UFO";
             this.btn_rmUFO.UseVisualStyleBackColor = true;
@@ -77,7 +77,7 @@
             this.chk_autoDestroy.AutoSize = true;
             this.chk_autoDestroy.Checked = true;
             this.chk_autoDestroy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_autoDestroy.Location = new System.Drawing.Point(28, 101);
+            this.chk_autoDestroy.Location = new System.Drawing.Point(28, 110);
             this.chk_autoDestroy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chk_autoDestroy.Name = "chk_autoDestroy";
             this.chk_autoDestroy.Size = new System.Drawing.Size(99, 20);
@@ -98,16 +98,27 @@
             this.gbox_option.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbox_option.Name = "gbox_option";
             this.gbox_option.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbox_option.Size = new System.Drawing.Size(271, 248);
+            this.gbox_option.Size = new System.Drawing.Size(216, 248);
             this.gbox_option.TabIndex = 4;
             this.gbox_option.TabStop = false;
+            // 
+            // chk_godMod
+            // 
+            this.chk_godMod.AutoSize = true;
+            this.chk_godMod.Location = new System.Drawing.Point(28, 200);
+            this.chk_godMod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chk_godMod.Name = "chk_godMod";
+            this.chk_godMod.Size = new System.Drawing.Size(90, 20);
+            this.chk_godMod.TabIndex = 6;
+            this.chk_godMod.Text = "God Mode";
+            this.chk_godMod.UseVisualStyleBackColor = true;
             // 
             // chk_ufosway
             // 
             this.chk_ufosway.AutoSize = true;
             this.chk_ufosway.Checked = true;
             this.chk_ufosway.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_ufosway.Location = new System.Drawing.Point(28, 161);
+            this.chk_ufosway.Location = new System.Drawing.Point(28, 170);
             this.chk_ufosway.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chk_ufosway.Name = "chk_ufosway";
             this.chk_ufosway.Size = new System.Drawing.Size(82, 20);
@@ -120,7 +131,7 @@
             this.chk_ufoAutoAdd.AutoSize = true;
             this.chk_ufoAutoAdd.Checked = true;
             this.chk_ufoAutoAdd.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_ufoAutoAdd.Location = new System.Drawing.Point(28, 132);
+            this.chk_ufoAutoAdd.Location = new System.Drawing.Point(28, 141);
             this.chk_ufoAutoAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chk_ufoAutoAdd.Name = "chk_ufoAutoAdd";
             this.chk_ufoAutoAdd.Size = new System.Drawing.Size(80, 20);
@@ -148,17 +159,6 @@
             this.ufoAddTick.Interval = 1200;
             this.ufoAddTick.Tick += new System.EventHandler(this.UfoAddTick_Tick);
             // 
-            // chk_godMod
-            // 
-            this.chk_godMod.AutoSize = true;
-            this.chk_godMod.Location = new System.Drawing.Point(28, 191);
-            this.chk_godMod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chk_godMod.Name = "chk_godMod";
-            this.chk_godMod.Size = new System.Drawing.Size(90, 20);
-            this.chk_godMod.TabIndex = 6;
-            this.chk_godMod.Text = "God Mode";
-            this.chk_godMod.UseVisualStyleBackColor = true;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -172,7 +172,7 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             // 
-            // Form1
+            // frm_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -182,7 +182,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form1";
+            this.Name = "frm_main";
             this.Text = "Form1";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.gbox_option.ResumeLayout(false);
