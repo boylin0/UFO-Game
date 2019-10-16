@@ -10,10 +10,12 @@ namespace UFO_Game
     class obj_ufo
     {
         public Image Image;
-        public int X = 0, Y = 0;
+        public float X = 0, Y = 0;
         public int Width = 50, Height = 50;
-        public int DropSpeed = 2;
-        public int FlyOffsetX = 0;
+        public float DropSpeed = 2;
+        public float lowestSpeed = 0.5f;
+        public float dynamicSpeed = 5;
+        public int FlySwaySpeed = 0;
         public int lastTick = 0;
         public int OffsetInterval_X = 1000;
         public bool destroy = false;
@@ -28,11 +30,21 @@ namespace UFO_Game
             Image = image;
         }
 
-        public void Move(int x, int y)
+        public void Move(float x, float y)
         {
             X += x;
             Y += y;
         }
 
+    }
+
+    class obj_bullet
+    {
+        public Image Image;
+        public float X = 0, Y = 0;
+        public int Width = 50, Height = 50;
+        public float BulletSpeed = 3.0f;
+        public bool destroy = false;
+        public int destroyTime = 0;
     }
 }
