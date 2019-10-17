@@ -13,7 +13,8 @@ namespace UFO_Game
         public float X = 0, Y = 0;
         public float Width = 50, Height = 50;
         public float Speed_X = 0.0f , Speed_Y = 0.0f;
-        public float maxSpeed = 5.0f;
+
+        public float MaxSpeed = 10.0f;
         public int timestamp_LastShoot = 0;
         public void Move(float x, float y)
         {

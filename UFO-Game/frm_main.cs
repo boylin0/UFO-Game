@@ -41,6 +41,9 @@ namespace UFO_Game
                     gGraphics.DrawImage(oUfo.Image, oUfo.X, oUfo.Y, oUfo.Width, oUfo.Height);
                 }
 
+                //draw floor
+                gGraphics.DrawImage(oFloor.Image, oFloor.X, oFloor.Y, oFloor.Width, oFloor.Height);
+
                 //draw bullet
                 foreach (obj_bullet oBullet in lstBullet)
                 {
@@ -80,28 +83,6 @@ namespace UFO_Game
 
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            bFrame = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            oFort.Y = pictureBox1.Height - oFort.Height - 50;
-        }
-
-        private void btn_addUFO_Click(object sender, EventArgs e)
-        {
-            obj_ufo objUfo = new obj_ufo(bUFO, 60, 36, rand.Next(0, this.Width), -60);
-            objUfo.LowestSpeed = 1.0f;
-            objUfo.AccelerationSpeed = 15.0f;
-
-            objUfo.SwayInterval = rand.Next(350, 2000);
-            objUfo.Image = bUFO;
-            lstUFO.Add(objUfo);
-        }
-
-        private void Btn_rmUFO_Click(object sender, EventArgs e)
-        {
-            if (lstUFO.Count > 0) lstUFO.RemoveAt(lstUFO.Count - 1);
-        }
-
         private void Label1_MouseEnter(object sender, EventArgs e)
         {
             gbox_option.Visible = true;
@@ -120,8 +101,32 @@ namespace UFO_Game
         private void UfoAddTick_Tick(object sender, EventArgs e)
         {
             if (GetForegroundWindow() != (IntPtr)this.Handle.ToInt32() || gameover) return;
-            btn_addUFO_Click(null, null);
+            obj_ufo objUfo = new obj_ufo(bUFO, 60, 36, rand.Next(0, this.Width), -60);
+            objUfo.LowestSpeed = 1.0f;
+            objUfo.AccelerationSpeed = 15.0f;
+
+            objUfo.SwayInterval = rand.Next(350, 2000);
+            objUfo.Image = bUFO;
+            lstUFO.Add(objUfo);
             ufoAddTick.Interval = rand.Next(100, 300);
+        }
+
+
+        private int resize_timestamp = 0;
+
+        private void PictureBox1_Resize(object sender, EventArgs e)
+        {
+            if (Environment.TickCount - resize_timestamp > 50) {
+                Gen_Texture_Floor(textureQuality);
+                oFloor = new obj_null(bFloor, 0, pictureBox1.Height - floorHeight, pictureBox1.Width, floorHeight);
+                bFrame = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                oTitleLogo.X = (pictureBox1.Width / 2) - (370 / 2);
+                oTitleLogo.Y = Convert.ToInt32(((pictureBox1.Height / 2) - (230 / 2)) * 0.5);
+                oFort.Y = pictureBox1.Height - oFort.Height - floorHeight;
+
+                resize_timestamp = Environment.TickCount;
+            }
+        
         }
     }
 }

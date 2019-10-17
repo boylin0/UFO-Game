@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -27,15 +28,21 @@ namespace UFO_Game
         int gameScore = 0;
         bool gameover = false;
         bool firstgame = false;
+        float textureQuality = 0.9f;
 
         //Object list
         obj_fort oFort;
         obj_null oTitleLogo;
+        obj_null oFloor;
+        obj_null oPrompt;
         List<obj_ufo> lstUFO = new List<obj_ufo>();
         List<obj_ufo> rmlstUFO = new List<obj_ufo>();
         List<obj_bullet> lstBullet = new List<obj_bullet>();
         List<obj_bullet> rmlstBullet = new List<obj_bullet>();
 
+        //object info
+        int floorHeight = 70;
+        
         //Texture
         Bitmap bUFO;
         Bitmap bUFO_destroy;
@@ -43,17 +50,17 @@ namespace UFO_Game
         Bitmap bBullet;
         Bitmap bGameover;
         Bitmap bGameTitle;
+        Bitmap bFloor;
 
         //Text
         Font fFont = new System.Drawing.Font("Arial", 16);
-        String txt_restart_prompt = "Press [R] to start game";
-
+        String txt_restart_prompt = "Press [R] to start game\n\n[←] Move Left\n[→] Move Right\n[Space] Shoot\n[Z] SuperBullet";
 
         private void InitializeGame()
         {
             // initialize texture
             bFrame = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            LoadTexture(0.7);
+            LoadTexture(textureQuality);
 
             // Clear objects
             lstUFO.Clear();
@@ -61,41 +68,32 @@ namespace UFO_Game
             lstBullet.Clear();
             rmlstBullet.Clear();
 
+            // setup objects
+            oTitleLogo = new obj_null((pictureBox1.Width / 2) - (370 / 2), Convert.ToInt32(((pictureBox1.Height / 2) - (230 / 2)) * 0.5), 370, 230);
+            oFloor = new obj_null(bFloor, 0, pictureBox1.Height - floorHeight, pictureBox1.Width, floorHeight);
+
             // setup fort object
             oFort = new obj_fort();
             oFort.Height = 75;
             oFort.Width = 50;
             oFort.X = (pictureBox1.Width / 2) - (oFort.Width / 2);
-            oFort.Y = pictureBox1.Height - oFort.Height - 50;
+            oFort.Y = pictureBox1.Height - oFort.Height - oFloor.Height;
             oFort.Image = bFort;
 
-            // setup objects
-            oTitleLogo = new obj_null((pictureBox1.Width / 2) - (370 / 2), Convert.ToInt32(((pictureBox1.Height / 2) - (230 / 2)) * 0.5), 370, 230);
 
             // clear game information
             gameScore = 0;
             gameover = false;
-        }
 
-
-        private void LoadTexture(double quality)
-        {
-            bUFO = new Bitmap(Resources.ufo);
-            bUFO = cls_algorithm.ResizeBitmap(bUFO, Convert.ToInt32(bUFO.Width * quality), Convert.ToInt32(bUFO.Height * quality));
-            bUFO_destroy = new Bitmap(Resources.ufo_destroy);
-            bUFO_destroy = cls_algorithm.ResizeBitmap(bUFO_destroy, Convert.ToInt32(bUFO_destroy.Width * quality), Convert.ToInt32(bUFO_destroy.Height * quality));
-            bFort = new Bitmap(Resources.fort);
-            bFort = cls_algorithm.ResizeBitmap(bFort, Convert.ToInt32(bFort.Width * quality), Convert.ToInt32(bFort.Height * quality));
-            bBullet = new Bitmap(Resources.bullet);
-            bBullet = cls_algorithm.ResizeBitmap(bBullet, Convert.ToInt32(bBullet.Width * quality), Convert.ToInt32(bBullet.Height * quality));
-            bGameover = new Bitmap(Resources.gameover);
-            bGameover = cls_algorithm.ResizeBitmap(bGameover, Convert.ToInt32(bGameover.Width * quality), Convert.ToInt32(bGameover.Height * quality));
-            bGameTitle = new Bitmap(Resources.gametitle);
-            bGameTitle = cls_algorithm.ResizeBitmap(bGameTitle, Convert.ToInt32(bGameTitle.Width * quality), Convert.ToInt32(bGameTitle.Height * quality));
         }
 
         private void ObjectMove()
         {
+            MousePos MouseP;
+            MouseP.X = this.PointToClient(Cursor.Position).X;
+            MouseP.Y = this.PointToClient(Cursor.Position).Y;
+
+
             // Gameover - Restart game
             if (gameover && (GetAsyncKeyState((int)0x52) & 0x1) != 0)
             {
@@ -108,22 +106,35 @@ namespace UFO_Game
             if (GetForegroundWindow() != (IntPtr)this.Handle.ToInt32() || gameover) return;
 
             // Keyboard input
-            if (GetAsyncKeyState((int)0x27) != 0) //Right - Move right
+            if (GetAsyncKeyState((int)Keys.Right) != 0) //Right - Move right
             {
-                oFort.X += 10;
+                oFort.X += oFort.MaxSpeed;
             }
-            if (GetAsyncKeyState((int)0x25) != 0) //Left - Move left
+            if (GetAsyncKeyState((int)Keys.Left) != 0) //Left - Move left
             {
-                oFort.X -= 10;
+                oFort.X -= oFort.MaxSpeed;
             }
-            if (GetAsyncKeyState((int)0x20) != 0 //Space - Shoot Key
+            if ( GetAsyncKeyState((int)0x20) != 0 //Space - Shoot Key
                 && Environment.TickCount - oFort.timestamp_LastShoot > 300 | chk_godMod.Checked)
             {
                 obj_bullet oBullet = new obj_bullet();
                 oBullet.Image = bBullet;
-                oBullet.Height = 50;
-                oBullet.Width = 30;
                 oBullet.X = (oFort.X + (oFort.Width / 2)) - (oBullet.Width / 2);
+                oBullet.Y = oFort.Y - (oBullet.Height / 2);
+                lstBullet.Add(oBullet);
+                oFort.timestamp_LastShoot = Environment.TickCount;
+            }
+            if (GetAsyncKeyState((int)0x5A) != 0 //Z - Super Shoot Key
+                && Environment.TickCount - oFort.timestamp_LastShoot > 300 | chk_godMod.Checked)
+            {
+                obj_bullet oBullet = new obj_bullet();
+                oBullet.Image = bBullet;
+                oBullet.Width *= 5;
+                oBullet.Height *= 5;
+                oBullet.X = (oFort.X + (oFort.Width / 2)) - (oBullet.Width / 2);
+                oBullet.isSuperBullet = true;
+                oBullet.LowestSpeed = 2.0f;
+                oBullet.AccelerationSpeed = 10.0f;
                 oBullet.Y = oFort.Y - (oBullet.Height / 2);
                 lstBullet.Add(oBullet);
                 oFort.timestamp_LastShoot = Environment.TickCount;
@@ -132,6 +143,7 @@ namespace UFO_Game
             // Prevent fort out of bounds
             if (oFort.X > pictureBox1.Width - oFort.Width) oFort.X = pictureBox1.Width - oFort.Width;
             if (oFort.X < 0) oFort.X = 0;
+
 
             // UFO controller
             foreach (obj_ufo oUfo in lstUFO)
@@ -196,8 +208,8 @@ namespace UFO_Game
             {
 
                 //move
-                float rate = (float)((pictureBox1.Height - oBullet.Y) / pictureBox1.Height); //calculate rate to top
-                oBullet.Y -= oBullet.LowestSpeed + oBullet.AccelerationSpeed * (1.0f - rate);
+                float rate = (float)((oBullet.Y + oBullet.Height) / pictureBox1.Height); //calculate rate to top
+                oBullet.Y -= oBullet.LowestSpeed + oBullet.AccelerationSpeed * (rate);
 
                 //touch top
                 if (oBullet.Y < -oBullet.Height)
@@ -212,7 +224,7 @@ namespace UFO_Game
                         oUfo.destroy = true;
                         oUfo.Image = bUFO_destroy;
                         oUfo.destroyTime = Environment.TickCount;
-                        rmlstBullet.Add(oBullet);
+                        if(!oBullet.isSuperBullet) rmlstBullet.Add(oBullet);
 
                         gameScore++;
                     }

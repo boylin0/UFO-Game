@@ -42,11 +42,11 @@ namespace UFO_Game
     {
         public Image Image;
         public float X = 0, Y = 0;
-        public int Width = 50, Height = 50;
-        public float LowestSpeed = 3.5f;
-        public float AccelerationSpeed = 15.0f;
-
+        public int Width = 30, Height = 50;
+        public float LowestSpeed = 5.0f;
+        public float AccelerationSpeed = 20.0f;
         public bool destroy = false;
         public int destroyTime = 0;
+        public bool isSuperBullet = false;
     }
 }
