@@ -59,6 +59,7 @@
     <Compile Include="game\game_texture.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="structure\obj_bullet.cs" />
     <Compile Include="structure\obj_fort.cs" />
     <Compile Include="structure\obj_ufo.cs" />
     <Compile Include="Program.cs" />
@@ -78,6 +79,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,25 +94,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\ufo.png" />
+    <None Include="resource\ufo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\ufo-destroy.png" />
+    <None Include="resource\ufo-destroy.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\fort.png" />
+    <None Include="resource\fort.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\gameover.png" />
+    <None Include="resource\gameover.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\bullet.png" />
+    <None Include="resource\bullet.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\gametitle.png" />
+    <None Include="resource\gametitle.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture\floor.png" />
+    <None Include="resource\floor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

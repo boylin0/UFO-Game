@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ufoAddTick = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.chk_edgeLoop = new System.Windows.Forms.CheckBox();
             this.gbox_option.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +65,7 @@
             // gbox_option
             // 
             this.gbox_option.BackColor = System.Drawing.Color.White;
+            this.gbox_option.Controls.Add(this.chk_edgeLoop);
             this.gbox_option.Controls.Add(this.chk_godMod);
             this.gbox_option.Controls.Add(this.chk_ufosway);
             this.gbox_option.Controls.Add(this.chk_ufoAutoAdd);
@@ -141,24 +143,36 @@
             this.pictureBox1.Location = new System.Drawing.Point(-1, 1);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(679, 734);
+            this.pictureBox1.Size = new System.Drawing.Size(910, 858);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             this.pictureBox1.Resize += new System.EventHandler(this.PictureBox1_Resize);
             // 
+            // chk_edgeLoop
+            // 
+            this.chk_edgeLoop.AutoSize = true;
+            this.chk_edgeLoop.Location = new System.Drawing.Point(17, 109);
+            this.chk_edgeLoop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chk_edgeLoop.Name = "chk_edgeLoop";
+            this.chk_edgeLoop.Size = new System.Drawing.Size(87, 20);
+            this.chk_edgeLoop.TabIndex = 7;
+            this.chk_edgeLoop.Text = "Edge loop";
+            this.chk_edgeLoop.UseVisualStyleBackColor = true;
+            // 
             // frm_main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 733);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(908, 857);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gbox_option);
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frm_main";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Main";
             this.gbox_option.ResumeLayout(false);
             this.gbox_option.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -177,6 +191,7 @@
         private System.Windows.Forms.Timer ufoAddTick;
         private System.Windows.Forms.CheckBox chk_ufosway;
         private System.Windows.Forms.CheckBox chk_godMod;
+        private System.Windows.Forms.CheckBox chk_edgeLoop;
     }
 }
 

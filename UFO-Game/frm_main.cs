@@ -5,11 +5,13 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using UFO_Game.Properties;
+using System.ComponentModel;
 
 namespace UFO_Game
 {
     public partial class frm_main : Form
     {
+
 
         public frm_main()
         {
@@ -35,25 +37,26 @@ namespace UFO_Game
             {
                 gGraphics.Clear(Color.White);
 
-                //draw ufo
+                // Draw ufo
                 foreach (obj_ufo oUfo in lstUFO)
                 {
+                    if (!oUfo.destroy)
+                    {
+                        gGraphics.FillRectangle(brush_red, oUfo.X, oUfo.Y + oUfo.Height + 5, (oUfo.Width * (oUfo.Life / (float)oUfo.MaxLife)), 5);
+                    }
                     gGraphics.DrawImage(oUfo.Image, oUfo.X, oUfo.Y, oUfo.Width, oUfo.Height);
                 }
 
-                //draw floor
-                gGraphics.DrawImage(oFloor.Image, oFloor.X, oFloor.Y, oFloor.Width, oFloor.Height);
-
-                //draw bullet
+                // Draw bullet
                 foreach (obj_bullet oBullet in lstBullet)
                 {
                     gGraphics.DrawImage(oBullet.Image, oBullet.X, oBullet.Y, oBullet.Width, oBullet.Height);
                 }
 
-                //draw fort
+                // Draw fort
                 gGraphics.DrawImage(bFort, oFort.X, oFort.Y, oFort.Width, oFort.Height);
 
-                //draw gameover
+                // Draw gameover
                 if (gameover)
                 {
                     if (firstgame)
@@ -61,25 +64,55 @@ namespace UFO_Game
                     else
                         gGraphics.DrawImage(bGameover, oTitleLogo.X, oTitleLogo.Y, oTitleLogo.Width, oTitleLogo.Height);
 
-                    SizeF sFont = gGraphics.MeasureString(txt_restart_prompt, fFont);
-                    gGraphics.DrawString(txt_restart_prompt,
+                    sFont = gGraphics.MeasureString(text_restart_prompt, fFont);
+                    gGraphics.DrawString(text_restart_prompt,
                         fFont, Brushes.Black,
                         (pictureBox1.Width / 2) - (sFont.Width / 2),
                         Convert.ToInt32(((pictureBox1.Height / 2) - (oTitleLogo.Height / 2)) * 0.5) + oTitleLogo.Height + 50,
                         StringFormat.GenericTypographic);
-                    
                 }
+
+                // Text last height
+                float textLastHeight = 0;
+
+                // Draw score
+                sFont = gGraphics.MeasureString(text_score, fFont);
+                gGraphics.DrawString(text_score,
+                    fFont, Brushes.Black,
+                    pictureBox1.Width - sFont.Width,
+                    0,
+                    StringFormat.GenericTypographic);
+                textLastHeight += sFont.Height;
+
+                // Draw time
+                sFont = gGraphics.MeasureString(text_gametime, fFont);
+                gGraphics.DrawString(text_gametime,
+                    fFont, Brushes.Black,
+                    pictureBox1.Width - sFont.Width,
+                    textLastHeight,
+                    StringFormat.GenericTypographic);
+                textLastHeight += sFont.Height;
+
+                // Draw level
+                sFont = gGraphics.MeasureString(text_level, fFont);
+                gGraphics.DrawString(text_level,
+                    fFont, Brushes.Black,
+                    pictureBox1.Width - sFont.Width,
+                    textLastHeight,
+                    StringFormat.GenericTypographic);
+                textLastHeight += sFont.Height;
+
+                // Draw debug info
+                sFont = gGraphics.MeasureString(text_debug, fFontMini);
+                gGraphics.DrawString(text_debug,
+                    fFontMini, Brushes.Red,
+                    5,
+                    pictureBox1.Height - sFont.Height - 5,
+                    StringFormat.GenericTypographic);
+
             }
 
             pictureBox1.Image = bFrame;
-
-            // Display Info
-            int frameTime = Environment.TickCount - lastTick_fps;
-            if (frameTime != 0) this.Text = String.Format(
-                "frame time: {0}ms | fps: {1} | UFO Count:{2} | Bullet Count:{3} | Gameover:{4} | Score:{5}",
-                   frameTime, 1000 / frameTime, lstUFO.Count, lstBullet.Count, gameover ? "true" : "false", gameScore);
-            lastTick_fps = Environment.TickCount;
-
 
         }
 
@@ -100,15 +133,7 @@ namespace UFO_Game
 
         private void UfoAddTick_Tick(object sender, EventArgs e)
         {
-            if (GetForegroundWindow() != (IntPtr)this.Handle.ToInt32() || gameover) return;
-            obj_ufo objUfo = new obj_ufo(bUFO, 60, 36, rand.Next(0, this.Width), -60);
-            objUfo.LowestSpeed = 1.0f;
-            objUfo.AccelerationSpeed = 15.0f;
-
-            objUfo.SwayInterval = rand.Next(350, 2000);
-            objUfo.Image = bUFO;
-            lstUFO.Add(objUfo);
-            ufoAddTick.Interval = rand.Next(100, 300);
+            UFO_Generate();
         }
 
 
@@ -116,17 +141,16 @@ namespace UFO_Game
 
         private void PictureBox1_Resize(object sender, EventArgs e)
         {
-            if (Environment.TickCount - resize_timestamp > 50) {
-                Gen_Texture_Floor(textureQuality);
-                oFloor = new obj_null(bFloor, 0, pictureBox1.Height - floorHeight, pictureBox1.Width, floorHeight);
+            if (Environment.TickCount - resize_timestamp > 50)
+            {
+                //Gen_Texture_Floor(textureQuality);
                 bFrame = new Bitmap(pictureBox1.Width, pictureBox1.Height);
                 oTitleLogo.X = (pictureBox1.Width / 2) - (370 / 2);
                 oTitleLogo.Y = Convert.ToInt32(((pictureBox1.Height / 2) - (230 / 2)) * 0.5);
-                oFort.Y = pictureBox1.Height - oFort.Height - floorHeight;
-
                 resize_timestamp = Environment.TickCount;
             }
-        
+
         }
+
     }
 }

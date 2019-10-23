@@ -31,7 +31,7 @@ namespace UFO_Game
             bGameTitle = new Bitmap(Resources.gametitle);
             bGameTitle = cls_algorithm.ResizeBitmap(bGameTitle, Convert.ToInt32(bGameTitle.Width * quality), Convert.ToInt32(bGameTitle.Height * quality));
 
-            Gen_Texture_Floor(quality);
+            //Gen_Texture_Floor(quality);
 
 
         }
@@ -41,8 +41,7 @@ namespace UFO_Game
             Bitmap bFloor_t = new Bitmap(Resources.floor);
             bFloor_t = cls_algorithm.ResizeBitmap(bFloor_t, Convert.ToInt32(bFloor_t.Width * quality), Convert.ToInt32(bFloor_t.Height * quality));
 
-            bFloor = new Bitmap(pictureBox1.Width, floorHeight);
-            
+            /*
             using (Graphics gGraphics = Graphics.FromImage(bFloor))
             {
                 gGraphics.Clear(Color.Green);
@@ -55,7 +54,7 @@ namespace UFO_Game
                     }
                 }
                 
-            }
+            }*/
             //Debug.s
         }
     }

@@ -12,15 +12,17 @@ namespace UFO_Game
         public Image Image;
         public float X = 0, Y = 0;
         public int Width = 50, Height = 50;
-        public float DropSpeed = 2;
-        public float LowestSpeed = 0.5f;
-        public float AccelerationSpeed = 5;
-        public int FlySwaySpeed = 0;
-        public int lastTick = 0;
+        public float DropSpeed = 0;
+        public float LowestSpeed = 1.0f;
+        public float AccelerationSpeed = 2.0f;
+        public int SwaySpeed = 0;
+        public int LastSway_timestamp = 0;
         public int SwayInterval = 1000;
         public bool destroy = false;
         public int destroyTime = 0;
-        
+        public int Life = 5;
+        public int MaxLife = 5;
+
         public obj_ufo(Image image, int width = 50, int height = 50, int x = 0, int y = 0)
         {
             X = x;
@@ -36,17 +38,11 @@ namespace UFO_Game
             Y += y;
         }
 
+        public void SetLife(int life) {
+            MaxLife = life;
+            Life = life;
+        }
     }
 
-    class obj_bullet
-    {
-        public Image Image;
-        public float X = 0, Y = 0;
-        public int Width = 30, Height = 50;
-        public float LowestSpeed = 5.0f;
-        public float AccelerationSpeed = 20.0f;
-        public bool destroy = false;
-        public int destroyTime = 0;
-        public bool isSuperBullet = false;
-    }
+
 }
