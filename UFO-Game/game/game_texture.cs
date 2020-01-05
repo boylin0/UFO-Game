@@ -38,8 +38,8 @@ namespace UFO_Game
 
         private void Gen_Texture_Floor(double quality)
         {
-            Bitmap bFloor_t = new Bitmap(Resources.floor);
-            bFloor_t = cls_algorithm.ResizeBitmap(bFloor_t, Convert.ToInt32(bFloor_t.Width * quality), Convert.ToInt32(bFloor_t.Height * quality));
+            //Bitmap bFloor_t = new Bitmap(Resources.floor);
+            //bFloor_t = cls_algorithm.ResizeBitmap(bFloor_t, Convert.ToInt32(bFloor_t.Width * quality), Convert.ToInt32(bFloor_t.Height * quality));
 
             /*
             using (Graphics gGraphics = Graphics.FromImage(bFloor))
